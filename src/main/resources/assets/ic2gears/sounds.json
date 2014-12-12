@@ -1,0 +1,4 @@
+{
+ "weapons.pistolShoot": {"category": "master", "sounds": [{"name": "weapons/pistolShoot", "stream": false}]},
+ "weapons.revolverShoot": {"category": "master", "sounds": [{"name": "weapons/revolverShoot", "stream": false}]}
+}
