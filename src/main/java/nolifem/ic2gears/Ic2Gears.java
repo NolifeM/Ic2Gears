@@ -76,6 +76,7 @@ public class Ic2Gears
     	Ic2GearsItemsTab = new CreativeTabIc2Gear(CreativeTabs.getNextID(),
     			"Ic2GearsItem", ICGItems.normalElecMagazine, 0);
     	
+    	proxy.init();
         System.out.println("Ic2 Gears Loaded");
     }
     

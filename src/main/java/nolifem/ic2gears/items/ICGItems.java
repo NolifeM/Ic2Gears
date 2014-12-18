@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import net.minecraft.item.Item;
 import nolifem.ic2gears.Ic2Gears;
-import nolifem.ic2gears.items.weapons.WeaponGenericICG;
+import nolifem.ic2gears.api.weapons.WeaponGenericICG;
 
 
 import cpw.mods.fml.common.registry.GameRegistry;

@@ -15,7 +15,7 @@ public class CommonProxy //implements IGuiHandler
 	  
 	public void preInit(){}
 	
-	public void load(){}
+	public void init(){}
 
 	 /* public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		  return null;

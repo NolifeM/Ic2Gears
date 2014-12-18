@@ -51,6 +51,7 @@ public final class InfWeapon {
 	 */
 	public int ticksExisted = 0;
 	
+	
 	/**
 	 * Currently active ticker channel. Usually is the ticker for last executed action.
 	 */

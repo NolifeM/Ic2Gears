@@ -1,4 +1,7 @@
 {
  "weapons.pistolShoot": {"category": "master", "sounds": [{"name": "weapons/pistolShoot", "stream": false}]},
- "weapons.revolverShoot": {"category": "master", "sounds": [{"name": "weapons/revolverShoot", "stream": false}]}
-}
+ "weapons.revolverShoot": {"category": "master", "sounds": [{"name": "weapons/revolverShoot", "stream": false}]},
+ "weapons.revolverReloadIn": {"category": "master", "sounds": [{"name": "weapons/revolverReloadIn", "stream": false}]},
+ "weapons.revolverReloadOut": {"category": "master", "sounds": [{"name": "weapons/revolverReloadOut", "stream": false}]},
+ "weapons.revolverSingleIn": {"category": "master", "sounds": [{"name": "weapons/revolverSingleIn", "stream": false}]}
+ }

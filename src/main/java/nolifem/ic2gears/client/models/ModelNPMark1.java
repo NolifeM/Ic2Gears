@@ -1,12 +1,12 @@
 package nolifem.ic2gears.client.models;
 
+import cn.liutils.api.client.model.IItemModel;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import cn.liutils.api.client.model.IItemModel;
 
-public class ModelNPMark1 extends ModelBase implements IItemModel
+public class ModelNPMark1 extends ModelBase implements IItemModel,IWeaponModel
 {
   //fields
 	int PART_CLIP = 1;
@@ -141,9 +141,7 @@ public class ModelNPMark1 extends ModelBase implements IItemModel
 	    grip03.render(f5);
 	    break;
 	  case 2:
-	    battery01.render(f5);
-	    battery02.render(f5);
-	    battery03.render(f5);
+	   
 	    break;
 	  }
 }
@@ -195,4 +193,41 @@ public class ModelNPMark1 extends ModelBase implements IItemModel
   
   public void setRotationAngles(ItemStack is, double posX, double posY,
 			double posZ, float f) {}
+
+@Override
+public void renderMain(ItemStack is, float f5, float f) {
+	// TODO Auto-generated method stub
+	body01.render(f5);
+    body01L.render(f5);
+    body01R.render(f5);
+    body02.render(f5);
+    body03.render(f5);
+    body04L.render(f5);
+    body04R.render(f5);
+    grip01.render(f5);
+    centure01.render(f5);
+    centure.render(f5);
+    grip02.render(f5);
+    grip03.render(f5);
+}
+
+@Override
+public void renderAmmo(ItemStack is, float f5, float f) {
+	// TODO Auto-generated method stub
+	 	battery01.render(f5);
+	    battery02.render(f5);
+	    battery03.render(f5);
+}
+
+@Override
+public void renderSlide(ItemStack is, float f5, float f) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void renderShell(ItemStack is, float f5, float f) {
+	// TODO Auto-generated method stub
+	
+}
 }
