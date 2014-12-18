@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+import nolifem.ic2gears.api.action.packs.APButtomReloadIn;
+import nolifem.ic2gears.api.action.packs.APButtomReloadOut;
 import nolifem.ic2gears.api.weapons.WeaponGenericICG;
 import nolifem.ic2gears.api.weapons.WeaponHelperE;
 import nolifem.ic2gears.client.render.RenderModelBulletWeaponE;
@@ -119,14 +121,17 @@ public class ActionReloadEMagazineIn extends ActionReload{
 		int te = this.maxTick -  inf.getTickLeft(this);
 		ItemStack curItem = player.getCurrentEquippedItem();
 		if(curItem != null){
-			renderer.mainAction.setOffsetX(20, 10, 0, 0, 0);
+			if(!(renderer.actionPack instanceof APButtomReloadIn))
+				renderer.actionPack = new APButtomReloadIn(renderer);
+			renderer.actionPack.reset();	
+			/*renderer.mainAction.setOffsetX(20, 10, 0, 0, 0);
 			renderer.mainAction.setOffsetZ(20, 10, 0, 0, 0);
 			renderer.mainAction.setRotation(20, 10, 0, 0, 0);
 			renderer.mainAction.reset();
 			renderer.ammoAction.setOffsetY(this.maxTick * 2, 5, 0, 0, 0);
 			renderer.ammoAction.setOffsetZ(this.maxTick * 2, 0, 0, 0, 0);
 			renderer.ammoAction.reset();
-			System.out.println("目标参数已传递至渲染器");
+			System.out.println("目标参数已传递至渲染器");*/
 		}
 	}
 	

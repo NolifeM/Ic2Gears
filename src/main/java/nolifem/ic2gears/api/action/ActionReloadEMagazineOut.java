@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+import nolifem.ic2gears.api.action.packs.APButtomReloadIn;
 import nolifem.ic2gears.api.action.packs.APButtomReloadOut;
 import nolifem.ic2gears.api.weapons.WeaponGenericICG;
 import nolifem.ic2gears.api.weapons.WeaponHelperE;
@@ -97,8 +98,9 @@ public class ActionReloadEMagazineOut extends ActionReload{
 		//int te = this.maxTick -  inf.getTickLeft(this);
 		ItemStack curItem = player.getCurrentEquippedItem();
 		if(curItem != null){
-			renderer.ammoPack = new APButtomReloadOut(renderer);
-			renderer.ammoPack.reset();
+			if(!(renderer.actionPack instanceof APButtomReloadOut))
+				renderer.actionPack = new APButtomReloadOut(renderer);
+			renderer.actionPack.reset();
 			/*renderer.mainAction.setOffsetX(20, 10, -0.1, 0, 0);
 			renderer.mainAction.setOffsetZ(20, 10, 0.1, 0, 0);
 			renderer.mainAction.setRotation(20, 20, 0, -20, -15);

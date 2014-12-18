@@ -33,6 +33,10 @@ public class ClientProxy extends CommonProxy{
 		
 		//一般:x向前，y下,z向右
 		pistol_render.setEquipOffset(1.0,-0.1,0)
+		
+							.setDefaultLeftHand()
+							.setRifleRightHand()
+							
 							.setFirstPersonScale(1.3)
 							.setFirstPersonOffset(-0.5,- 0.3, -0.6)
 							.setFirstPersonRotaion(0, -10, 15);

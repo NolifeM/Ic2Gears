@@ -41,8 +41,11 @@ public class RenderModelWeaponE extends RenderModelItem{
 	public RenderActionE shellAction = new RenderActionE();
 	public RenderActionE slideAction = new RenderActionE();
 	
+	public RenderActionE leftAction = new RenderActionE();
+	public RenderActionE rightAction = new RenderActionE();
+	
 	//动作管理包
-	public ActionPack ammoPack = new ActionPack(null);
+	public ActionPack actionPack = new ActionPack(null);
 	
 	/*部件参数-旧
 	double[] main = new double[7],
@@ -80,7 +83,7 @@ public class RenderModelWeaponE extends RenderModelItem{
 		if (item.stackTagCompound == null)
 			item.stackTagCompound = new NBTTagCompound();
 		
-		ammoPack.updatePack();
+		actionPack.updatePack();
 		
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glPushMatrix(); {
@@ -111,7 +114,7 @@ public class RenderModelWeaponE extends RenderModelItem{
 		/*firstPersonRotation.xCoord++;
 		doRotation(firstPersonRotation);*/
 		//完成武器的四个部分的渲染
-		if(firstPerson && entity instanceof EntityPlayer){
+		//if(firstPerson && entity instanceof EntityPlayer){
 			
 			EntityPlayer player = (EntityPlayer)entity;
 			EntityClientPlayerMP playerClient = (EntityClientPlayerMP)player;
@@ -124,16 +127,16 @@ public class RenderModelWeaponE extends RenderModelItem{
 			mainAction.updateAction();
 			doTransformation(mainAction.updateOffset());
 			doRotationWithPos(mainAction.updateRotation(),mainAction.updateOffset());
-			System.out.println("Main当前offset" + mainAction.updateOffset());
-			System.out.println("Main当前rotation" + mainAction.updateRotation());
+			/*System.out.println("Main当前offset" + mainAction.updateOffset());
+			System.out.println("Main当前rotation" + mainAction.updateRotation());*/
 			modelE.renderMain(null, 0.0625F, i);
 			
 			GL11.glPushMatrix(); {
 				ammoAction.updateAction();
 				doTransformation(ammoAction.updateOffset());
 				doRotationWithPos(ammoAction.updateRotation(),ammoAction.updateOffset());
-				System.out.println("Ammo当前offset" + ammoAction.updateOffset());
-				System.out.println("Ammo当前rotation" + ammoAction.updateRotation());
+				/*System.out.println("Ammo当前offset" + ammoAction.updateOffset());
+				System.out.println("Ammo当前rotation" + ammoAction.updateRotation());*/
 				modelE.renderAmmo(null, 0.0625F, i);
 			} GL11.glPopMatrix();
 			
@@ -153,21 +156,27 @@ public class RenderModelWeaponE extends RenderModelItem{
 			
 			//左手部渲染调试
 			GL11.glPushMatrix(); {
-				GL11.glTranslated(0.25, -0.05, 0.6);
-			/*GL11.glPushMatrix(); {
-				GL11.glRotated(-60,0 , 1.0D , 0);
-			} GL11.glPopMatrix();*/
-				GL11.glRotated(-110,0 , 0, 1.0D);
-				GL11.glRotated(-25, 1.0D , 0 , 0);
-				GL11.glScalef(1.5F, 1.50F, 1.5F);
+				leftAction.updateAction();
+				doTransformation(leftAction.updateOffset().addVector(leftHandOffset.xCoord, leftHandOffset.yCoord, leftHandOffset.zCoord));
+				doRotation(leftAction.updateRotation().addVector(leftHandRotation.xCoord, leftHandRotation.yCoord, leftHandRotation.zCoord));
+				GL11.glScalef(1.5F, 1.5F, 1.5F);
 				RenderUtils.loadTexture(playerClient.getLocationSkin());
 				handRender.renderFirstPersonArm(player);
-			//GL11.glRotated(testDouble++,1.0D , 0 , 0);
 			} GL11.glPopMatrix();
 			
-		}
+			//右手部渲染调试
+			GL11.glPushMatrix(); {
+				rightAction.updateAction();
+				doTransformation(rightAction.updateOffset().addVector(rightHandOffset.xCoord, rightHandOffset.yCoord, rightHandOffset.zCoord));
+				doRotation(rightAction.updateRotation().addVector(rightHandRotation.xCoord, rightHandRotation.yCoord, rightHandRotation.zCoord));
+				GL11.glScalef(1.5F, 1.5F, 1.5F);
+				RenderUtils.loadTexture(playerClient.getLocationSkin());
+				handRender.renderFirstPersonArm(player);
+			} GL11.glPopMatrix();
+			
+		/*}
 		else
-			modelE.render(null, 0.0625F, i);
+			modelE.render(null, 0.0625F, i);*/
 		GL11.glEnable(GL11.GL_CULL_FACE);
 	}
 	
@@ -186,28 +195,26 @@ public class RenderModelWeaponE extends RenderModelItem{
 		return this;
 	}
 
-	/*public void setPartRender(Vec3 vec3,double x, double y, double z, int ticks, double a,double alose){
-	}*/
-	
-	/*private void setPartVec(Vec3 vec3,double x, double y, double z) {
-		initVec(vec3, x, y, z);
-	}*/
-	
-	/**
-	 * 预设移动
-	 * 使用渲染器里提供的预设动作，较方便
-	 * @param target
-	 * @param type
-	 */
-	/*public void setAmmoRender(int target,int type){
-		ammoCurrentTick = 0;
-		ammoTargetTick = target;
-		ammoRenderType = type;
-	}*/
+	public RenderModelWeaponE setLeftHandOffset(double b0, double b1, double b2) {
+		initVec(leftHandOffset, b0, b1, b2);
+		return this;
+	}
 
-	/**
-	 * 伴随Pos的旋转
-	 */
+	public RenderModelWeaponE setLeftHandRotation(float x, float y, float z) {
+		initVec(leftHandRotation, x, y, z);	
+		return this;
+	}
+
+	public RenderModelWeaponE setRightHandOffset(double b0, double b1, double b2) {
+		initVec(rightHandOffset, b0, b1, b2);
+		return this;
+	}
+
+	public RenderModelWeaponE setRightHandRotation(float x, float y, float z) {
+		initVec(rightHandRotation, x, y, z);	
+		return this;
+	}
+	
 	protected void doRotationWithPos(Vec3 vec3, Vec3 pos) {
 		if(vec3 != null && pos != null) {
 			GL11.glTranslated(-pos.xCoord,-pos.yCoord,-pos.zCoord);
@@ -223,6 +230,15 @@ public class RenderModelWeaponE extends RenderModelItem{
 	private Vec3 firstPersonRotation = initVec();
 	private double firstPersonScale = 1; 
 	
+	/** leftHand*/
+	private Vec3 leftHandOffset = initVec();
+	private Vec3 leftHandRotation = initVec();
+	
+	/** rightHand*/
+	private Vec3 rightHandOffset = initVec();
+	private Vec3 rightHandRotation = initVec();
+	
+	//预制
 	/** main*//*
 	private Vec3 mainOffset = initVec();
 	private Vec3 mainRotation = initVec();

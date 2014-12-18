@@ -13,6 +13,8 @@
  */
 package nolifem.ic2gears.client.render;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,12 +26,8 @@ import cn.liutils.api.client.render.RenderModelItem;
 import cn.weaponmod.api.weapon.WeaponGeneric;
 
 /**
- * 基于RendererModelBulletWeaponE修改，尝试实现Action对renderer的软性控制
- * 
- * 完成武器分块渲染
- * 暂定武器分块：
- * 主体、弹匣、弹壳、枪机
- * 
+ * 基于RendererModelBulletWeaponE修改
+ *
  * @author WeathFolD
  *
  *An Expansion by Nolife_M
@@ -159,5 +157,27 @@ public class RenderModelBulletWeaponE extends RendererBulletWeaponBaseE {
 			ItemRenderType type) {
 		mdlRenderer.renderEquipped(stack, null, pl, type);
 	}
+	
+	//================Preset 预制参数===============
+	public RenderModelBulletWeaponE setDefaultLeftHand(){		
+		mdlRenderer.setLeftHandOffset(0.3,  -0.05, 0.6);
+		mdlRenderer.setLeftHandRotation(-25, 0, -110);
+		return this;
+	}
 
+	public RenderModelBulletWeaponE setRifleRightHand(){		
+		mdlRenderer.setRightHandOffset(-0.9,  -0.4, 0);
+		mdlRenderer.setRightHandRotation(0, 0, -90);
+		return this;
+	}
+
+	public RenderModelBulletWeaponE setPistolRightHand(){		
+		mdlRenderer.setRightHandOffset(0.3,  -0.05, 0.6);
+		mdlRenderer.setRightHandRotation(-25, 0, -110);
+		return this;
+	}
+	
+	/*GL11.glTranslated(-0.9, -0.4, 0);
+	GL11.glRotated(-90,0 , 0, 1.0D);
+	GL11.glRotated(0, 1.0D , 0 , 0);*/
 }
