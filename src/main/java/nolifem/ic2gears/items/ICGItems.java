@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.minecraft.item.Item;
 import nolifem.ic2gears.Ic2Gears;
 import nolifem.ic2gears.api.weapons.WeaponGenericICG;
+import nolifem.ic2gears.items.weapons.WeaponPistolE;
 
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -26,6 +27,7 @@ public class ICGItems {
 	public static ItemAmmo elecNagnumBullet;
 	public static Item normalPistolMark1;
 	public static Item normalRevolverMark1;
+	public static Item m14EBR;
 	
 	//在这里具体加入物品
 	public static void ItemInit(){
@@ -37,9 +39,12 @@ public class ICGItems {
 		normalElecMagazine = ((ItemAmmo) new ItemElecAmmo("normalElecMagazine",40000,2,160).setMaxDamage(27)).setAmmoType(ItemAmmo.TYPE_MAGAZINE);
 		elecNagnumBullet = ((ItemAmmo) new ItemAmmo("elecNagnumBullet").setMaxDamage(0).setMaxStackSize(16)).setAmmoType(ItemAmmo.TYPE_BULLET);
 		//mark-1手枪，装弹夹型
-		normalPistolMark1 = new WeaponGenericICG("normalPistolMark1",ICGItems.lowElecMagazine, false)
+		normalPistolMark1 = new WeaponPistolE("normalPistolMark1",ICGItems.lowElecMagazine, false)
 			.addAmmo(ICGItems.normalElecMagazine).setBoltCatch(true);
-		normalRevolverMark1 = ((WeaponGenericICG)new WeaponGenericICG("normalRevolverMark1",ICGItems.elecNagnumBullet, false).setMaxDamage(5)).setDirectLoading(true);
+		normalRevolverMark1 = new WeaponGenericICG("normalRevolverMark1",ICGItems.elecNagnumBullet, false)
+			.setDirectLoading(true).setMaxDamage(5);
+		
+		m14EBR = new WeaponGenericICG("m14EBR",ICGItems.lowElecMagazine,false).setBoltCatch(true);
 		
 		ICGItems.registerItems();	
 		
@@ -58,6 +63,7 @@ public class ICGItems {
 		ICGItems.registerItem(ICGItems.elecNagnumBullet);
 		ICGItems.registerItem(ICGItems.normalPistolMark1);
 		ICGItems.registerItem(ICGItems.normalRevolverMark1);
+		ICGItems.registerItem(ICGItems.m14EBR);
 	}
 	
 	//自己写一个方法将后面的内容囊括进去

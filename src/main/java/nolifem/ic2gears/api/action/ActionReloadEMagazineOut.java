@@ -5,8 +5,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+import nolifem.ic2gears.api.action.packs.APBatteryOut;
 import nolifem.ic2gears.api.action.packs.APButtomReloadIn;
 import nolifem.ic2gears.api.action.packs.APButtomReloadOut;
+import nolifem.ic2gears.api.action.packs.ActionPack;
 import nolifem.ic2gears.api.weapons.WeaponGenericICG;
 import nolifem.ic2gears.api.weapons.WeaponHelperE;
 import nolifem.ic2gears.client.render.RenderModelBulletWeaponE;
@@ -29,13 +31,20 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class ActionReloadEMagazineOut extends ActionReload{
 
-	RenderModelWeaponE renderer;
+	private RenderModelWeaponE renderer;
+	private ActionPack actionPack;
 	
 	public ActionReloadEMagazineOut(int ticks, String snd) {
 		super(ticks, snd, "");
 		//this.name = "reloadMOut";
 	}
 
+	public ActionReloadEMagazineOut setActionPack(ActionPack ap){
+		this.actionPack = ap;
+		return this;
+	}
+	
+	
 	/**
 	 * 步骤整理：读取枪械内弹夹并返还至player背包内
 	 * ——重置当前枪械状况
@@ -97,17 +106,9 @@ public class ActionReloadEMagazineOut extends ActionReload{
 	public void applyRenderEffect(World world, EntityPlayer player, InfWeapon inf, boolean first) {
 		//int te = this.maxTick -  inf.getTickLeft(this);
 		ItemStack curItem = player.getCurrentEquippedItem();
-		if(curItem != null){
-			if(!(renderer.actionPack instanceof APButtomReloadOut))
-				renderer.actionPack = new APButtomReloadOut(renderer);
-			renderer.actionPack.reset();
-			/*renderer.mainAction.setOffsetX(20, 10, -0.1, 0, 0);
-			renderer.mainAction.setOffsetZ(20, 10, 0.1, 0, 0);
-			renderer.mainAction.setRotation(20, 20, 0, -20, -15);
-			renderer.mainAction.reset();
-			renderer.ammoAction.setOffsetY(this.maxTick * 2, 5, 1, 9.8 ,0);
-			renderer.ammoAction.setOffsetZ(this.maxTick * 2, 0, 1,  0.1   ,-0.02);
-			renderer.ammoAction.reset();*/
+		if(curItem != null && this.actionPack != null){
+			renderer.actionPack = this.actionPack.setRenderer(renderer);
+			renderer.actionPack.reset();	
 		}
 	}
 	

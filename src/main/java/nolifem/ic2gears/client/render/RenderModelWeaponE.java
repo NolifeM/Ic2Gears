@@ -45,7 +45,7 @@ public class RenderModelWeaponE extends RenderModelItem{
 	public RenderActionE rightAction = new RenderActionE();
 	
 	//动作管理包
-	public ActionPack actionPack = new ActionPack(null);
+	public ActionPack actionPack;
 	
 	/*部件参数-旧
 	double[] main = new double[7],
@@ -83,7 +83,8 @@ public class RenderModelWeaponE extends RenderModelItem{
 		if (item.stackTagCompound == null)
 			item.stackTagCompound = new NBTTagCompound();
 		
-		actionPack.updatePack();
+		if(actionPack != null)
+			actionPack.updatePack();
 		
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glPushMatrix(); {
@@ -118,62 +119,76 @@ public class RenderModelWeaponE extends RenderModelItem{
 			
 			EntityPlayer player = (EntityPlayer)entity;
 			EntityClientPlayerMP playerClient = (EntityClientPlayerMP)player;
-			
-			GL11.glScaled(firstPersonScale,firstPersonScale,firstPersonScale);
-			doTransformation(firstPersonOffset);
-			doRotation(firstPersonRotation);
-			GL11.glScalef(1F , 1F , -1F );
-			
+
+			ammoAction.updateAction();
 			mainAction.updateAction();
+			shellAction.updateAction();
+			slideAction.updateAction();
+			
+			GL11.glScalef(1F , 1F , -1F );
+			//测试代码
+			//GL11.glTranslated(0, 0, 2);
+			
 			doTransformation(mainAction.updateOffset());
 			doRotationWithPos(mainAction.updateRotation(),mainAction.updateOffset());
-			/*System.out.println("Main当前offset" + mainAction.updateOffset());
-			System.out.println("Main当前rotation" + mainAction.updateRotation());*/
-			modelE.renderMain(null, 0.0625F, i);
 			
 			GL11.glPushMatrix(); {
-				ammoAction.updateAction();
-				doTransformation(ammoAction.updateOffset());
-				doRotationWithPos(ammoAction.updateRotation(),ammoAction.updateOffset());
-				/*System.out.println("Ammo当前offset" + ammoAction.updateOffset());
-				System.out.println("Ammo当前rotation" + ammoAction.updateRotation());*/
-				modelE.renderAmmo(null, 0.0625F, i);
-			} GL11.glPopMatrix();
+					
+				GL11.glScaled(firstPersonScale,firstPersonScale,firstPersonScale);
+				doTransformation(firstPersonOffset);
+				doRotation(firstPersonRotation);
+
+			System.out.println("Main当前offset" + mainAction.updateOffset());
+			System.out.println("Main当前rotation" + mainAction.updateRotation());
+				modelE.renderMain(null, 0.0625F, i);
 			
-			GL11.glPushMatrix(); {
-				shellAction.updateAction();
-				doTransformation(shellAction.updateOffset());
-				doRotationWithPos(shellAction.updateRotation(),shellAction.updateOffset());
-				modelE.renderShell(null, 0.0625F, i);
-			} GL11.glPopMatrix();
+				GL11.glPushMatrix(); {
+					doTransformation(ammoAction.updateOffset());
+					doRotationWithPos(ammoAction.updateRotation(),ammoAction.updateOffset());
+				System.out.println("Ammo当前offset" + ammoAction.updateOffset());
+				System.out.println("Ammo当前rotation" + ammoAction.updateRotation());
+					modelE.renderAmmo(null, 0.0625F, i);
+				} GL11.glPopMatrix();
 			
-			GL11.glPushMatrix(); {
-				slideAction.updateAction();
-				doTransformation(slideAction.updateOffset());
-				doRotationWithPos(slideAction.updateRotation(),slideAction.updateOffset());
-				modelE.renderSlide(null, 0.0625F, i);
+				GL11.glPushMatrix(); {
+					doTransformation(shellAction.updateOffset());
+					doRotationWithPos(shellAction.updateRotation(),shellAction.updateOffset());
+					modelE.renderShell(null, 0.0625F, i);
+				} GL11.glPopMatrix();
+			
+				GL11.glPushMatrix(); {
+					doTransformation(slideAction.updateOffset());
+					doRotationWithPos(slideAction.updateRotation(),slideAction.updateOffset());
+					modelE.renderSlide(null, 0.0625F, i);
+				} GL11.glPopMatrix();
 			} GL11.glPopMatrix();
+			//手部渲染
+				RenderUtils.loadTexture(playerClient.getLocationSkin());
 			
 			//左手部渲染调试
-			GL11.glPushMatrix(); {
-				leftAction.updateAction();
-				doTransformation(leftAction.updateOffset().addVector(leftHandOffset.xCoord, leftHandOffset.yCoord, leftHandOffset.zCoord));
-				doRotation(leftAction.updateRotation().addVector(leftHandRotation.xCoord, leftHandRotation.yCoord, leftHandRotation.zCoord));
-				GL11.glScalef(1.5F, 1.5F, 1.5F);
-				RenderUtils.loadTexture(playerClient.getLocationSkin());
-				handRender.renderFirstPersonArm(player);
-			} GL11.glPopMatrix();
+				GL11.glPushMatrix(); {
+					leftAction.updateAction();
+					doTransformation(leftAction.updateOffset().addVector(leftHandOffset.xCoord, leftHandOffset.yCoord, leftHandOffset.zCoord));
+					doRotation(leftAction.updateRotation().addVector(leftHandRotation.xCoord, leftHandRotation.yCoord, leftHandRotation.zCoord));
+					//修正点
+					GL11.glTranslated(0.6, 0, 0);
+					GL11.glScalef(1.95F, 1.95F, 1.95F);
+				
+					handRender.renderFirstPersonArm(player);
+				} GL11.glPopMatrix();
 			
 			//右手部渲染调试
-			GL11.glPushMatrix(); {
-				rightAction.updateAction();
-				doTransformation(rightAction.updateOffset().addVector(rightHandOffset.xCoord, rightHandOffset.yCoord, rightHandOffset.zCoord));
-				doRotation(rightAction.updateRotation().addVector(rightHandRotation.xCoord, rightHandRotation.yCoord, rightHandRotation.zCoord));
-				GL11.glScalef(1.5F, 1.5F, 1.5F);
-				RenderUtils.loadTexture(playerClient.getLocationSkin());
-				handRender.renderFirstPersonArm(player);
-			} GL11.glPopMatrix();
-			
+				GL11.glPushMatrix(); {
+					GL11.glScaled(2, 2, 2);
+					rightAction.updateAction();
+					doTransformation(rightAction.updateOffset().addVector(rightHandOffset.xCoord, rightHandOffset.yCoord, rightHandOffset.zCoord));
+					doRotation(rightAction.updateRotation().addVector(rightHandRotation.xCoord, rightHandRotation.yCoord, rightHandRotation.zCoord));
+					//旋转点测试
+					//GL11.glRotated(testDouble++, 0, 0, 1.0D);
+					//修正旋转点
+					GL11.glTranslated(0.3, 0, 0);
+					handRender.renderFirstPersonArm(player);
+				} GL11.glPopMatrix();
 		/*}
 		else
 			modelE.render(null, 0.0625F, i);*/
@@ -217,11 +232,11 @@ public class RenderModelWeaponE extends RenderModelItem{
 	
 	protected void doRotationWithPos(Vec3 vec3, Vec3 pos) {
 		if(vec3 != null && pos != null) {
-			GL11.glTranslated(-pos.xCoord,-pos.yCoord,-pos.zCoord);
+			GL11.glTranslated(pos.xCoord,pos.yCoord,pos.zCoord);
 			GL11.glRotated(vec3.yCoord, 0.0F, 1.0F, 0.0F);
 			GL11.glRotated(vec3.zCoord, 0.0F, 0.0F, 1.0F);
 			GL11.glRotated(vec3.xCoord, 1.0F, 0.0F, 0.0F);
-			GL11.glTranslated(pos.xCoord,pos.yCoord,pos.zCoord);
+			GL11.glTranslated(-pos.xCoord,-pos.yCoord,-pos.zCoord);	
 		}
 	}
 	

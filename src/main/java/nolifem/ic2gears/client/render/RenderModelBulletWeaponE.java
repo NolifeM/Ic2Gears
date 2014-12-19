@@ -159,21 +159,28 @@ public class RenderModelBulletWeaponE extends RendererBulletWeaponBaseE {
 	}
 	
 	//================Preset 预制参数===============
-	public RenderModelBulletWeaponE setDefaultLeftHand(){		
-		mdlRenderer.setLeftHandOffset(0.3,  -0.05, 0.6);
-		mdlRenderer.setLeftHandRotation(-25, 0, -110);
+	//X前，Y下，Z左
+	public RenderModelBulletWeaponE setRifleLeftHand(){		
+		mdlRenderer.setLeftHandOffset(0, 0.5, 1.6);
+		mdlRenderer.setLeftHandRotation(0, 25, -110);
 		return this;
 	}
 
 	public RenderModelBulletWeaponE setRifleRightHand(){		
-		mdlRenderer.setRightHandOffset(-0.9,  -0.4, 0);
-		mdlRenderer.setRightHandRotation(0, 0, -90);
+		mdlRenderer.setRightHandOffset(-0.9, -0.25, 0.45);
+		mdlRenderer.setRightHandRotation(0, 0, -79);
 		return this;
 	}
 
+	public RenderModelBulletWeaponE setPistolLeftHand(){		
+		mdlRenderer.setLeftHandOffset(-0.55, 0.3, 1.5);
+		mdlRenderer.setLeftHandRotation(0, 40, -90);
+		return this;
+	}
+	
 	public RenderModelBulletWeaponE setPistolRightHand(){		
-		mdlRenderer.setRightHandOffset(0.3,  -0.05, 0.6);
-		mdlRenderer.setRightHandRotation(-25, 0, -110);
+		mdlRenderer.setRightHandOffset(-0.35, -0.05, 0.25);
+		mdlRenderer.setRightHandRotation(0, 0, -79);
 		return this;
 	}
 	

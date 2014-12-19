@@ -175,13 +175,13 @@ public class WeaponGenericICG extends WeaponGeneric{
 	 * 定义一些Action，不同的Action可以搭配出各种各样的武器
 	 */
 	public Action
-		actionShoot = new ActionShootE(4, 2 , "ic2gears:weapons.revolverShoot").setShootRate(1).setConsume(true, this.loadingConsume),
+		actionShoot = new ActionShootE(1, 2 , "").setShootRate(1).setConsume(true, this.loadingConsume),
 		actionShootAuto = new ActionAutomaticShootE((ActionShootE)actionShoot,300,1),
 		actionUplift = new ActionUplift(3.0F,1.0F,.5F,3.0F),
 		actionChamberingIn = new ActionChamberingIn("","",5,15),
 		actionChamberingOut = new ActionChamberingOut(40,"",""),
-		actionReloadBulletIn = new ActionReloadEBulletIn(20,10,15, "ic2gears:weapons.revolverReloadOut", "ic2gears:weapons.revolverSingleIn", "ic2gears:weapons.revolverReloadIn"),
-		actionReloadBulletOut = new ActionReloadEBulletOut(25, "ic2gears:weapons.revolverReloadOut", "ic2gears:weapons.revolverReloadIn"),
+		actionReloadBulletIn = new ActionReloadEBulletIn(20,10,15, "", "", ""),
+		actionReloadBulletOut = new ActionReloadEBulletOut(25, "", ""),
 		actionReloadClipIn = new ActionReloadEClipIn(10, ""),
 		actionReloadMagezineIn = new ActionReloadEMagazineIn(15,1, ""),
 		actionReloadMagezineOut = new ActionReloadEMagazineOut(20,""),

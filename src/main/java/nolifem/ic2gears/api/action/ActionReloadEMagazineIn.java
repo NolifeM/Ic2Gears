@@ -9,6 +9,7 @@ import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import nolifem.ic2gears.api.action.packs.APButtomReloadIn;
 import nolifem.ic2gears.api.action.packs.APButtomReloadOut;
+import nolifem.ic2gears.api.action.packs.ActionPack;
 import nolifem.ic2gears.api.weapons.WeaponGenericICG;
 import nolifem.ic2gears.api.weapons.WeaponHelperE;
 import nolifem.ic2gears.client.render.RenderModelBulletWeaponE;
@@ -31,6 +32,7 @@ import cn.weaponmod.api.weapon.WeaponGeneric;
 public class ActionReloadEMagazineIn extends ActionReload{
 
 	RenderModelWeaponE renderer;
+	ActionPack actionPack;
 	
 	int amountConsume = 1;
 	public ActionReloadEMagazineIn(int ticks, int amountConsume,String snd) {
@@ -39,6 +41,10 @@ public class ActionReloadEMagazineIn extends ActionReload{
 		//this.name = "reloadMIn";
 	}
 
+	public ActionReloadEMagazineIn setActionPack(ActionPack ap){
+		this.actionPack = ap;
+		return this;
+	}
 	/**
 	 * 步骤整理：首先查找背包内是否有非空弹夹(tryGetAmmo，返回一个弹夹ItemStack)
 	 * ——查找到非空弹夹后，给武器弹夹ID赋值，设定前弹容
@@ -118,20 +124,10 @@ public class ActionReloadEMagazineIn extends ActionReload{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void applyRenderEffect(World world, EntityPlayer player, InfWeapon inf, boolean first) {
-		int te = this.maxTick -  inf.getTickLeft(this);
 		ItemStack curItem = player.getCurrentEquippedItem();
-		if(curItem != null){
-			if(!(renderer.actionPack instanceof APButtomReloadIn))
-				renderer.actionPack = new APButtomReloadIn(renderer);
+		if(curItem != null && actionPack != null){
+			renderer.actionPack = actionPack.setRenderer(renderer);
 			renderer.actionPack.reset();	
-			/*renderer.mainAction.setOffsetX(20, 10, 0, 0, 0);
-			renderer.mainAction.setOffsetZ(20, 10, 0, 0, 0);
-			renderer.mainAction.setRotation(20, 10, 0, 0, 0);
-			renderer.mainAction.reset();
-			renderer.ammoAction.setOffsetY(this.maxTick * 2, 5, 0, 0, 0);
-			renderer.ammoAction.setOffsetZ(this.maxTick * 2, 0, 0, 0, 0);
-			renderer.ammoAction.reset();
-			System.out.println("目标参数已传递至渲染器");*/
 		}
 	}
 	

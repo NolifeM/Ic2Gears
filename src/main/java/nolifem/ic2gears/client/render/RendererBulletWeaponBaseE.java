@@ -131,11 +131,11 @@ public abstract class RendererBulletWeaponBaseE implements IItemRenderer {
 		
 		GL11.glPushMatrix(); {
 			
-			if(firstPerson) {
+			/*if(firstPerson) {
 				float angle = WMClientProxy.upliftHandler.totalAngle;
 				GL11.glRotatef(angle * upliftFactor, 0, 0, 1);
 				GL11.glTranslated(recoilVec.xCoord * angle, recoilVec.yCoord * angle, recoilVec.zCoord * angle);
-			}
+			}*/
 			
 			/*//原本在此完成对ActionRenderEffect的调用
 			//Apply action render effects

@@ -74,14 +74,20 @@ public class RenderActionE {
 	 */
 	private double  getFinalPos(int tick,int maxtick , int delay, double origPos,double tarPos,double v,double a){
 		double p = origPos;
-		boolean flag = tarPos - origPos > 0;
 		if(maxtick != 0){
 			if(tick > delay && tick <= maxtick + delay){
+				System.out.println(tick + "===" + delay + "===" + maxtick+delay);
 				if(a != 0){
+					boolean flag = tarPos  - p > 0;
 						double p1 = PhysicsUtil.getDistanceWithAcceleration(v, a, tick - delay) - PhysicsUtil.getDistanceWithAcceleration(v, a, tick - delay - 1);
 						p += p1;
-						if(p > p - PhysicsUtil.getDistanceWithAcceleration(v, a, tick - delay) + tarPos)
-							p = p - PhysicsUtil.getDistanceWithAcceleration(v, a, tick - delay) + tarPos;
+						if(flag){
+							if(p > tarPos)
+								p = tarPos;
+						}
+						else
+							if(p < tarPos)
+								p = tarPos;
 				}
 				else{
 					p += (tarPos - origPos)/(maxtick + delay - tick +1);
