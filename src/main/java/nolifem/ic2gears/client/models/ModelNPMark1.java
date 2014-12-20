@@ -1,6 +1,7 @@
 package nolifem.ic2gears.client.models;
 
 import cn.liutils.api.client.model.IItemModel;
+import cn.weaponmod.api.client.model.IWeaponModel;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

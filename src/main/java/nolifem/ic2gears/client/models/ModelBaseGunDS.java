@@ -5,6 +5,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import cn.liutils.api.client.model.IItemModel;
+import cn.weaponmod.api.client.model.IWeaponModel;
 
 
 /**两倍大的标准BaseGun，需要scale0.5

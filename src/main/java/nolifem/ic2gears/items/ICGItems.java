@@ -2,9 +2,12 @@ package nolifem.ic2gears.items;
 
 import java.util.ArrayList;
 
+import cn.weaponmod.api.weapon.expand.ItemAmmo;
+import cn.weaponmod.api.weapon.expand.ItemElecAmmo;
+import cn.weaponmod.api.weapon.expand.WeaponGenericE;
+
 import net.minecraft.item.Item;
 import nolifem.ic2gears.Ic2Gears;
-import nolifem.ic2gears.api.weapons.WeaponGenericICG;
 import nolifem.ic2gears.items.weapons.WeaponPistolE;
 
 
@@ -41,10 +44,10 @@ public class ICGItems {
 		//mark-1手枪，装弹夹型
 		normalPistolMark1 = new WeaponPistolE("normalPistolMark1",ICGItems.lowElecMagazine, false)
 			.addAmmo(ICGItems.normalElecMagazine).setBoltCatch(true);
-		normalRevolverMark1 = new WeaponGenericICG("normalRevolverMark1",ICGItems.elecNagnumBullet, false)
+		normalRevolverMark1 = new WeaponGenericE("normalRevolverMark1",ICGItems.elecNagnumBullet, false)
 			.setDirectLoading(true).setMaxDamage(5);
 		
-		m14EBR = new WeaponGenericICG("m14EBR",ICGItems.lowElecMagazine,false).setBoltCatch(true);
+		m14EBR = new WeaponGenericE("m14EBR",ICGItems.lowElecMagazine,false).setBoltCatch(true);
 		
 		ICGItems.registerItems();	
 		

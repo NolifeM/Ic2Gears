@@ -18,18 +18,19 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import cn.liutils.api.client.model.IItemModel;
-import cn.liutils.api.client.render.RenderModelItem;
+import cn.weaponmod.api.client.model.IWeaponModel;
 import cn.weaponmod.api.weapon.WeaponGeneric;
 
 /**
- * 
- * @author WeAthFolD
+ * 基于RendererModelBulletWeapon修改
  *
+ * @author WeathFolD
+ *
+ *An Expansion by Nolife_M
  */
 public class RendererModelBulletWeapon extends RendererBulletWeaponBase {
 	
-	public RenderModelItem mdlRenderer;
+	public RenderModelWeapon mdlRenderer;
 	
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -55,10 +56,16 @@ public class RendererModelBulletWeapon extends RendererBulletWeaponBase {
 	 * @param mdl
 	 * @param texture
 	 */
-	public RendererModelBulletWeapon(IItemModel mdl, WeaponGeneric type, ResourceLocation texture) {
+	//获得mdl
+	public RendererModelBulletWeapon(IWeaponModel mdl, WeaponGeneric type, ResourceLocation texture) {
 		super(type);
-		mdlRenderer = new RenderModelItem(mdl, texture);
+		mdlRenderer = new RenderModelWeapon(mdl, texture);
 		setInvRotation(0F, 0F, 37.5F);
+		//修正参数整合
+		//Std : x向左,y向上,z向后，rotate用于修正武器渲染矩阵为使用者习惯的朝向
+		setStdRotation(0F, -90F, 0F);
+		setOffset(0F, 0F, 0.5F);
+		setScale(0.75F);
 	}
 	
 	public RendererModelBulletWeapon setInformationFrom(RendererModelBulletWeapon a) {
@@ -91,6 +98,11 @@ public class RendererModelBulletWeapon extends RendererBulletWeaponBase {
 		return this;
 	}
 	
+	public RendererModelBulletWeapon setFirstPersonRotaion(float x, float y, float z) {
+		mdlRenderer.setFirstPersonRotaion(x, y, z);
+		return this;
+	}
+	
 	public RendererModelBulletWeapon setInvRotation(float x, float y, float z) {
 		mdlRenderer.setInvRotation(x, y, z);
 		return this;
@@ -111,6 +123,11 @@ public class RendererModelBulletWeapon extends RendererBulletWeaponBase {
 		return this;
 	}
 	
+	public RendererModelBulletWeapon setFirstPersonScale(double s) {
+		mdlRenderer.setFirstPersonScale(s);
+		return this;
+	}
+	
 	public RendererModelBulletWeapon setOffset(float offsetX, float offsetY, float offsetZ) {
 		mdlRenderer.setOffset(offsetX, offsetY, offsetZ);
 		return this;
@@ -125,11 +142,41 @@ public class RendererModelBulletWeapon extends RendererBulletWeaponBase {
 		mdlRenderer.setEquipOffset(b0, b1, b2);
 		return this;
 	}
+	
+	public RendererModelBulletWeapon setFirstPersonOffset(double b0, double b1, double b2) {
+		mdlRenderer.setFirstPersonOffset(b0, b1, b2);
+		return this;
+	}
 
 	@Override
 	protected void renderWeapon(ItemStack stack, EntityPlayer pl,
 			ItemRenderType type) {
 		mdlRenderer.renderEquipped(stack, null, pl, type);
 	}
+	
+	//================Preset 预制参数===============
+	//X前，Y下，Z左
+	public RendererModelBulletWeapon setRifleLeftHand(){		
+		mdlRenderer.setLeftHandOffset(0, 0.5, 1.6);
+		mdlRenderer.setLeftHandRotation(0, 25, -110);
+		return this;
+	}
 
+	public RendererModelBulletWeapon setRifleRightHand(){		
+		mdlRenderer.setRightHandOffset(-0.9, -0.25, 0.45);
+		mdlRenderer.setRightHandRotation(0, 0, -79);
+		return this;
+	}
+
+	public RendererModelBulletWeapon setPistolLeftHand(){		
+		mdlRenderer.setLeftHandOffset(-0.55, 0.3, 1.5);
+		mdlRenderer.setLeftHandRotation(0, 40, -90);
+		return this;
+	}
+	
+	public RendererModelBulletWeapon setPistolRightHand(){		
+		mdlRenderer.setRightHandOffset(-0.35, -0.05, 0.25);
+		mdlRenderer.setRightHandRotation(0, 0, -79);
+		return this;
+	}
 }

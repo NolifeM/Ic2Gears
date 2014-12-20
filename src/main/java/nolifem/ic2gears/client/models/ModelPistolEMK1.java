@@ -5,6 +5,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import cn.liutils.api.client.model.IItemModel;
+import cn.weaponmod.api.client.model.IWeaponModel;
 
 public class ModelPistolEMK1 extends ModelBase implements IItemModel,IWeaponModel
 {

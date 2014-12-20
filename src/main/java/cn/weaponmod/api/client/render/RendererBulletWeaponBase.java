@@ -1,6 +1,3 @@
-/**
- * 
- */
 package cn.weaponmod.api.client.render;
 
 import java.util.List;
@@ -23,31 +20,23 @@ import cn.weaponmod.api.weapon.WeaponGeneric;
 import cn.weaponmod.core.proxy.WMClientProxy;
 
 /**
+ * 基于RenderBulletWeaponBase修改，尝试实现Action对renderer的软性控制
+ * 已经合并，主要改动：
+ * 去掉Uplift和Recoil渲染，全部交由ActionPack完成
+ * 去掉对applyRenderEffect的调用
+ * 
+ *此类提供了基本的底层方法和渲染方式
+ *2D渲染实现交由RenderBulletWeaoponE中的renderWeapon实现
+ *3D模型渲染交由RenderModelBulletWeapon中的renderWeapon实现
+ * 
  * @author WeathFolD
  *
+ *An Expansion by Nolife_M
  */
 public abstract class RendererBulletWeaponBase implements IItemRenderer {
 	
 	protected WeaponGenericBase weaponType;
 	protected static Random RNG = new Random();
-	
-	float upliftFactor = 3F;
-	Vec3 recoilVec = Vec3.createVectorHelper(-0.05D, 0.02D, 0D);
-	
-	/**
-	 * 设置武器上抬角度和屏幕上抬角度的比值。
-	 */
-	public RendererBulletWeaponBase setUpliftFactor(float f) {
-		upliftFactor = f;
-		return this;
-	}
-	
-	public RendererBulletWeaponBase setRecoilVec(double x, double y, double z) {
-		recoilVec.xCoord = x;
-		recoilVec.yCoord = y;
-		recoilVec.zCoord = z;
-		return this;
-	}
 	
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -106,6 +95,7 @@ public abstract class RendererBulletWeaponBase implements IItemRenderer {
 		weaponType = type;
 	}
 
+	//修改部分
 	public void renderEquipped(ItemStack stack, RenderBlocks render,
 			EntityLivingBase entity, ItemRenderType type) {
 		
@@ -122,21 +112,7 @@ public abstract class RendererBulletWeaponBase implements IItemRenderer {
 				&& Minecraft.getMinecraft().gameSettings.thirdPersonView == 0;
 		
 		GL11.glPushMatrix(); {
-			
-			if(firstPerson) {
-				float angle = WMClientProxy.upliftHandler.totalAngle;
-				GL11.glRotatef(angle * upliftFactor, 0, 0, 1);
-				GL11.glTranslated(recoilVec.xCoord * angle, recoilVec.yCoord * angle, recoilVec.zCoord * angle);
-			}
-			
-			//Apply action render effects
-			List<Action> list = inf.getRenderActionList();
-			for(Action a : list) {
-				a.applyRenderEffect(player.worldObj, player, inf, firstPerson);
-			}
-		
 			renderWeapon(stack, player, type);
-		
 		} GL11.glPopMatrix();
 	}
 	

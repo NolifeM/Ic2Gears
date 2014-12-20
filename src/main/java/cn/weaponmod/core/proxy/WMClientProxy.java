@@ -32,7 +32,8 @@ public class WMClientProxy extends WMCommonProxy{
 	// This enable one to access LIKeyProcess directly and set the key binding to another.
 	// Although, not quite recommended for multi-mod support hasn't been added now.
 	public static final String
-		KEY_ID_RELOAD = "wm_reload";
+		KEY_ID_RELOAD = "wm_reload",
+		KEY_ID_CHAMBER= "wme_chambering";
 	
 	@Override
 	public void preInit() { 
@@ -42,6 +43,8 @@ public class WMClientProxy extends WMCommonProxy{
 		LIKeyProcess.instance.addKey(mc.gameSettings.keyBindAttack, false, new WMKeyHandler(0));
 		LIKeyProcess.instance.addKey(mc.gameSettings.keyBindUseItem, false, new WMKeyHandler(1));
 		LIKeyProcess.instance.addKey(KEY_ID_RELOAD, Keyboard.KEY_R, false, new WMKeyHandler(2));
+		LIKeyProcess.instance.addKey(KEY_ID_CHAMBER, Keyboard.KEY_F, false, new WMKeyHandler(3));
+		
 		
 		if(LIUtils.DEBUG) {
 			FieldModifierHandler.all.add(new ModifierProviderModelWeapon());

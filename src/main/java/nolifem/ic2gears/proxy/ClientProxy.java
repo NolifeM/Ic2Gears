@@ -5,14 +5,9 @@ import nolifem.ic2gears.ClientProps;
 import nolifem.ic2gears.client.TickHandlerClient;
 import nolifem.ic2gears.client.models.ModelM14EBR;
 import nolifem.ic2gears.client.models.ModelPistolEMK1;
-import nolifem.ic2gears.client.render.RenderModelBulletWeaponE;
 import nolifem.ic2gears.items.ICGItems;
-
-import org.lwjgl.input.Keyboard;
-
-import cn.liutils.core.client.register.LIKeyProcess;
+import cn.weaponmod.api.client.render.RendererModelBulletWeapon;
 import cn.weaponmod.api.weapon.WeaponGeneric;
-import cn.weaponmod.core.client.keys.WMKeyHandler;
 
 /**
  * 枪械渲染绑定模型部分
@@ -21,18 +16,13 @@ import cn.weaponmod.core.client.keys.WMKeyHandler;
  *
  */
 public class ClientProxy extends CommonProxy{
-	
-	public static final String
-	KEY_ID_CHAMBER= "wme_chambering";
-	
-	public void preInit(){
-		LIKeyProcess.instance.addKey(KEY_ID_CHAMBER, Keyboard.KEY_F, false, new WMKeyHandler(3));
-	}
+		
+	public void preInit(){}
 	
 	public void init(){
 		
-		RenderModelBulletWeaponE pistolE_render = new RenderModelBulletWeaponE(new ModelPistolEMK1(), (WeaponGeneric) ICGItems.normalPistolMark1,ClientProps.PISTOL_PATH);
-		RenderModelBulletWeaponE m14_renderer = new RenderModelBulletWeaponE(new ModelM14EBR(), (WeaponGeneric) ICGItems.normalPistolMark1,ClientProps.M14_PATH);
+		RendererModelBulletWeapon pistolE_render = new RendererModelBulletWeapon(new ModelPistolEMK1(), (WeaponGeneric) ICGItems.normalPistolMark1,ClientProps.PISTOL_PATH);
+		RendererModelBulletWeapon m14_renderer = new RendererModelBulletWeapon(new ModelM14EBR(), (WeaponGeneric) ICGItems.normalPistolMark1,ClientProps.M14_PATH);
 		
 		//一般:x向前，y上,z向左
 		pistolE_render.setEquipOffset(1.0,0.05,0)
